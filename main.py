@@ -75,3 +75,31 @@ plt.ylabel('Frequencia')
 plt.title('Distribuição de Notas')
 plt.show()
 # %%
+
+df['absences'].skew()
+# %%
+
+# Estatistica descritiva para Absences e G3
+for col in ['absences', 'G3']:
+    print(f"=== Estatísticas: {col} ===")
+    print(f"Média:          {df[col].mean():.2f}")
+    print(f"Mediana:        {df[col].median():.2f}")
+    print(f"Desvio Padrão:  {df[col].std():.2f}")
+    print(f"Assimetria:     {df[col].skew():.2f}\n")
+
+# %%
+
+# -=-=-=-=-=--=-=-=---=- ANALISE BIVARIADA -=-=-=--=-=-=-=
+
+# Hipotese: Alunos que faltam mais tendem a ter notas menores. 
+
+plt.scatter(x=df['absences'], y=df['G3'], alpha=0.3)
+
+# Visualmente nao podemos afirmar um relação linear. É notavel alunos com poucas faltas que tiraram notas boas e ruins, assim como alunos com bastante faltas ainda tiraram notas decentes
+# %%
+df[['absences','G3']].corr()
+
+df[['absences','G3']].corr(method='spearman')
+
+
+# %%
