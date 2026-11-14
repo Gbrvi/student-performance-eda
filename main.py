@@ -1,6 +1,8 @@
 # %%
 import pandas as pd
 from scipy import stats
+import matplotlib.pyplot as plt  
+from math import sqrt
 
 # %% 
 
@@ -53,4 +55,23 @@ outliers_df
 
 df[['G1', 'G2', 'G3']].corr()
 
+# %%
+# -=-=-=-=-=-= HISTOGRAMA ABSENCES -=-=-=-=--=-=-=
+
+bins = round(sqrt(len(df['absences'].dropna())))
+bins
+plt.hist(df['absences'], bins=bins)
+plt.xlabel('Número de faltas')
+plt.ylabel('Frequência')
+plt.title('Distribuição de faltas')
+plt.show()
+# %%
+# -=-=-=-=-=-=-=- HISTOGRAMA G3 -=-=--=-=-=-
+bins_g3 = round(sqrt(len(df['G3'].dropna())))
+bins_g3
+plt.hist(df['G3'], bins=bins_g3)
+plt.xlabel('Quantidade de Notas')
+plt.ylabel('Frequencia')
+plt.title('Distribuição de Notas')
+plt.show()
 # %%
