@@ -101,5 +101,34 @@ df[['absences','G3']].corr()
 
 df[['absences','G3']].corr(method='spearman')
 
+# %%
+# Analise se outliers impactam a analise
+def subconjunto_sem_outlier(colunas):
 
+    sem_outliers = df.copy()
+    for coluna in colunas:
+        Q1 = df[coluna].quantile(0.25)
+        Q3 = df[coluna].quantile(0.75)
+        IQR = Q3 - Q1
+
+        limite_inferior = Q1 - (1.5 * IQR)
+        limite_superior = Q3 + (1.5 * IQR)
+
+        # resultado.append({"coluna": coluna, "li": limite_inferior, "ls": limite_superior})
+        sem_outliers = df[(df[coluna] >= limite_inferior) & (df[coluna] <= limite_superior)]
+
+    return sem_outliers
+
+df_sem_outliers = subconjunto_sem_outlier(['absences'])
+
+df_sem_outliers
+
+# %%
+# Aplicando PEARSON e SPEARMAN 
+
+plt.scatter(x=df_sem_outliers['absences'], y=df_sem_outliers['G3'], alpha=0.3)
+# %%
+df_sem_outliers[['absences', 'G3']].corr()
+#%%
+df_sem_outliers[['absences', 'G3']].corr('spearman')
 # %%
